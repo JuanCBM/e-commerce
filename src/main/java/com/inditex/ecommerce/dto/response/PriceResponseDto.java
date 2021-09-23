@@ -1,19 +1,21 @@
 package com.inditex.ecommerce.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
-public class PriceResponseDto {
+public interface PriceResponseDto {
 
-  private Long productId;
+  Long getProductId();
 
-  private Long brandId;
+  Long getBrandId();
 
-  private Long priceList;
+  Long getPriceList();
 
-  private LocalDateTime startDate;
+  @JsonFormat(shape = JsonFormat.Shape.STRING)
+  LocalDateTime getStartDate();
 
-  private LocalDateTime endDate;
+  @JsonFormat(shape = JsonFormat.Shape.STRING)
+  LocalDateTime getEndDate();
 
-  private Double price;
-
+  Double getSellingPrice();
 }

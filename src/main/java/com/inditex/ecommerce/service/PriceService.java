@@ -6,4 +6,5 @@ import com.inditex.ecommerce.dto.response.PriceResponseDto;
 public interface PriceService {
 
   PriceResponseDto getPriceByFilter(PriceRequestDto priceRequestDto);
+
 }
