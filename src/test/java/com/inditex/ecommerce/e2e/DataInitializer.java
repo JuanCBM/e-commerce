@@ -1,4 +1,4 @@
-package com.inditex.ecommerce.service.impl;
+package com.inditex.ecommerce.e2e;
 
 import com.inditex.ecommerce.model.Price;
 import com.inditex.ecommerce.repository.PriceRepository;

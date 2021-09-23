@@ -1,6 +1,6 @@
 <h1 align="center">Prueba Inditex </h1>
 
-## Authors
+## Autor
 👤 **JuanCBM**: Juan Carlos Blázquez Muñoz
 
 * Github: [@JuanCBM](https://github.com/JuanCBM)
