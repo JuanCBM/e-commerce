@@ -7,7 +7,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.inditex.ecommerce.dto.request.PriceRequestDto;
+import com.inditex.ecommerce.utils.Constants;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +124,77 @@ class PriceControllerTest {
         .andExpect(jsonPath("$.sellingPrice", equalTo(38.95)));
 
   }
+
+  @Test
+  @DisplayName("Get price test 6, required parameter brandId not found")
+  void getPriceTest6() throws Exception {
+    PriceRequestDto priceRequestDto = PriceRequestDto.builder()
+        .productId(PRODUCT_ID)
+        .localDateTime(LocalDateTime.parse("2020-06-14T10:00:00"))
+        .build();
+
+    this.mockMvc.perform(post("/api/prices/filter")
+        .content(objectMapper.writeValueAsString(priceRequestDto))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().is(400))
+    .andDo(MockMvcResultHandlers.print());
+
+  }
+
+  @Test
+  @DisplayName("Get price test 7, productId invalid value")
+  void getPriceTest7() throws Exception {
+    PriceRequestDto priceRequestDto = PriceRequestDto.builder()
+        .brandId(BRAND_ID)
+        .productId(-1L)
+        .localDateTime(LocalDateTime.parse("2020-06-14T10:00:00"))
+        .build();
+
+    this.mockMvc.perform(post("/api/prices/filter")
+        .content(objectMapper.writeValueAsString(priceRequestDto))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().is(400))
+        .andDo(MockMvcResultHandlers.print());
+
+  }
+
+  @Test
+  @DisplayName("Get price test 8, localDateTime invalid format")
+  void getPriceTest8() throws Exception {
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.INITIAL_DATA_DATE_FORMAT);
+
+    PriceRequestDto priceRequestDto = PriceRequestDto.builder()
+        .brandId(BRAND_ID)
+        .productId(-1L)
+        .localDateTime(LocalDateTime.parse("2020-06-14-18.30.00", formatter))
+        .build();
+
+    this.mockMvc.perform(post("/api/prices/filter")
+        .content(objectMapper.writeValueAsString(priceRequestDto))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().is(400))
+        .andDo(MockMvcResultHandlers.print());
+
+  }
+
+  @Test
+  @DisplayName("Get price test 9, price not found")
+  void getPriceTest9() throws Exception {
+    PriceRequestDto priceRequestDto = PriceRequestDto.builder()
+        .brandId(BRAND_ID)
+        .productId(PRODUCT_ID)
+        .localDateTime(LocalDateTime.parse("2020-06-13T10:00:00"))
+        .build();
+
+    this.mockMvc.perform(post("/api/prices/filter")
+        .content(objectMapper.writeValueAsString(priceRequestDto))
+        .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().is(404))
+        .andDo(MockMvcResultHandlers.print());
+  }
+
+
+
 
   private ResultActions runTestGetPrice(PriceRequestDto priceRequestDto) throws Exception {
     return this.mockMvc.perform(post("/api/prices/filter")

@@ -3,6 +3,7 @@ package com.inditex.ecommerce.repository;
 import com.inditex.ecommerce.dto.request.PriceRequestDto;
 import com.inditex.ecommerce.dto.response.PriceResponseDto;
 import com.inditex.ecommerce.model.Price;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -20,5 +21,6 @@ public interface PriceRepository extends JpaRepository<Price, Long> {
           + "      :#{#priceRequestDto.localDateTime} BETWEEN p.start_date AND p.end_date "
           + " ORDER BY p.priority DESC, p.creation_timestamp DESC, p.id DESC "
           + " LIMIT 1", nativeQuery = true)
-  PriceResponseDto getPriceByFilter(@Param("priceRequestDto") PriceRequestDto priceRequestDto);
+  Optional<PriceResponseDto> getPriceByFilter(
+      @Param("priceRequestDto") PriceRequestDto priceRequestDto);
 }

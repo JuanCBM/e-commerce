@@ -1,4 +1,4 @@
-package com.inditex.ecommerce.e2e;
+package com.inditex.ecommerce.service.impl;
 
 import com.inditex.ecommerce.model.Price;
 import com.inditex.ecommerce.repository.PriceRepository;
@@ -14,15 +14,13 @@ import java.util.ArrayList;
 import java.util.Currency;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
-@Profile("test")
 @Service
 public class DataInitializer {
 
   private final PriceRepository priceRepository;
-  private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd-HH.mm.ss");
+  private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.INITIAL_DATA_DATE_FORMAT);
 
   public DataInitializer(PriceRepository priceRepository) {
     this.priceRepository = priceRepository;
