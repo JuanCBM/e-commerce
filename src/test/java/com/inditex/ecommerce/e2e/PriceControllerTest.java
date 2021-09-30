@@ -29,10 +29,9 @@ class PriceControllerTest {
 
   private final long BRAND_ID = 1;
   private final long PRODUCT_ID = 35455;
-
+  private final ObjectMapper objectMapper;
   @Autowired
   private MockMvc mockMvc;
-  private final ObjectMapper objectMapper;
 
   PriceControllerTest() {
     this.objectMapper = new ObjectMapper();
@@ -137,7 +136,7 @@ class PriceControllerTest {
         .content(objectMapper.writeValueAsString(priceRequestDto))
         .contentType(MediaType.APPLICATION_JSON))
         .andExpect(status().is(400))
-    .andDo(MockMvcResultHandlers.print());
+        .andDo(MockMvcResultHandlers.print());
 
   }
 
@@ -192,8 +191,6 @@ class PriceControllerTest {
         .andExpect(status().is(404))
         .andDo(MockMvcResultHandlers.print());
   }
-
-
 
 
   private ResultActions runTestGetPrice(PriceRequestDto priceRequestDto) throws Exception {

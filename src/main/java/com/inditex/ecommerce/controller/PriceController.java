@@ -37,6 +37,11 @@ public class PriceController {
           )}
       ),
       @ApiResponse(
+          responseCode = "400",
+          description = "Invalid price attributes supplied",
+          content = @Content
+      ),
+      @ApiResponse(
           responseCode = "404",
           description = "Price not found",
           content = @Content

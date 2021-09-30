@@ -20,7 +20,8 @@ import org.springframework.stereotype.Service;
 public class DataInitializer {
 
   private final PriceRepository priceRepository;
-  private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(Constants.INITIAL_DATA_DATE_FORMAT);
+  private final DateTimeFormatter formatter = DateTimeFormatter
+      .ofPattern(Constants.INITIAL_DATA_DATE_FORMAT);
 
   public DataInitializer(PriceRepository priceRepository) {
     this.priceRepository = priceRepository;
